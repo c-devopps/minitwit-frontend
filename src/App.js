@@ -1,9 +1,15 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@mui/material/Button';
+import React from 'react'
+import Container from '@mui/material/Container';
+import Timeline from './Timeline'
 
-function App() {
-  return <Button variant="contained">Hello World</Button>;
+export default function App() {
+    return (
+        <Container style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+      }}>
+            <Timeline />
+        </Container>
+    );
 }
-
-export default App;
