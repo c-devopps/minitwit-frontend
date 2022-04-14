@@ -15,12 +15,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getUserData, setUserData } from '../utils/userData'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Redirect } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import { register } from '../api/register.js'
 
 
 let initialMessages = populateMsgs()
-
 
 function populateMsgs() {
   let returnList = [20]
@@ -80,9 +79,9 @@ export default function Timeline() {
                   src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F550%2F731%2Foriginal%2Fuser-icon-vector.jpg&f=1&nofb=1"
                   sx={{ width: 100, height: 100 }}
                 />   
-                <p>
-                  {messages[0].authorName}
-                </p>
+                <h5>
+                  {userData.username}
+                </h5>
                 {(() => {
             if (followed) {
               return (
@@ -161,12 +160,16 @@ export default function Timeline() {
                   borderColor : 'black'
                 }}>
                 <BottomNavigationAction onClick={() => {
-                  setUser({
+                  console.log("clicked")
+                  register('oskar', 'osbr@itu.dk', 'asd')
+                  setUserData({
                     username: 'oskar',
                     email: 'osbr@itu.dk',
                     avatar: 'url',
                     follows: []
-                  })}} label='Login' icon={<ExitToAppIcon />} />
+                  })
+                  setUser(getUserData())
+                  }} label='Login' icon={<ExitToAppIcon />} />
               </BottomNavigation>
               )
           } else {
