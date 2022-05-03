@@ -1,7 +1,11 @@
 export function login(username, password) {
-    
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+
+    console.log('In log in ' + username)
+    console.log('In log in ' + password)
+
 
     var raw = JSON.stringify({
         "username": username,
@@ -15,9 +19,14 @@ export function login(username, password) {
         redirect: 'follow'
     };
 
-    fetch("http://138.68.118.234:8080/login", requestOptions)
-        .then(response => JSON.stringify(response))
-        .then(result => console.log(result))
+    return fetch("/login", requestOptions)
+        .then((response) => response.text())
+        .then(result => {
+            console.log('Result ' + result)
+            loggedInUser = JSON.parse(result)
+            console.log('Parsed to ' + loggedInUser)
+        })
         .catch(error => console.log('error', error));
-
 }
+
+export let loggedInUser = {}
