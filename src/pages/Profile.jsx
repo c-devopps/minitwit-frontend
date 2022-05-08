@@ -13,14 +13,7 @@ import { logout } from '../api/logout'
 import { postMessage } from '../api/messages'
 
 
-let oskarProfile = {
-    username: 'oskar',
-    email: 'oskar@oskar.osk',
-    avatar: 'www.www.www',
-    follows: [ 'anton' ],
-}
-
-function Profile() {
+export default function Profile() {
     const user = useContext(userContext)
     const [errorMessage, setErrorMessage] = useState('') 
     const [username, setUsername] = useState('')
@@ -28,9 +21,6 @@ function Profile() {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
     const [registerClicked, setRegisterClicked] = useState(false)
-    const [follows, setFollows] = useState([])
-    let screenHeight = window.innerHeight
-    let screenWidth = window.screenWidth
     return (
         <Container  style={{
             display: 'flex',
@@ -81,10 +71,6 @@ function Profile() {
                                 Register
                                 </Button>
                             </Stack>
-                            <Button variant="outlined" sx={{ borderColor: '#a3c9fe' }} 
-                                onClick={() => { logout()}}>
-                                Logout
-                                </Button>
                             <Typography variant="p" style={{color: 'red'}}>
                                 {errorMessage}
                             </Typography>
@@ -159,7 +145,6 @@ function Profile() {
                                     multiline
                                     maxRows={4}
                                     sx={{ minWidth: 400, borderColor: '#a3c9fe' }}
-                                    //value={}
                                     onChange={(event) => setMessage(event.target.value)}
                                     />
                                     <Button variant="outlined" value={{message}} sx={{ minWidth: 200, borderColor: '#a3c9fe' }} onClick={() => {
@@ -181,6 +166,3 @@ function Profile() {
         </Container>
     )
 }
-
-
-export default Profile;

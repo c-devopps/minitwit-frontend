@@ -6,7 +6,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import userContext from '../utils/userContext';
-import populateMsgs from '../utils/populateMsgs';
 import PublicIcon from '@mui/icons-material/Public';
 import { logout } from '../api/logout'
 import { getMessages, exportMessages, exportProfile, getMessagesByUser } from '../api/messages'
@@ -20,8 +19,7 @@ let emptyProfile = {
 
 export default function NavBar() {
     const user = useContext(userContext)
-    let screenHeight = window.innerHeight;
-    let screenWidth = window.screenWidth;
+
     return (
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderColor : 'black'}} elevation={10}>
             <BottomNavigation
@@ -42,7 +40,7 @@ export default function NavBar() {
                 .then((response) => {
                     user.setCurrentProfile(user.getUser());
                     user.setCurrentMessages(exportMessages.filter(
-                            (message) => message.authorName == user.username
+                            (message) => message.authorName == 'Roger Histand'
                         )
                     )
                 })
@@ -53,7 +51,7 @@ export default function NavBar() {
                     .then((response) => {
                         user.setCurrentMessages(exportMessages)
                     })
-                }}/>
+            }}/>
             <BottomNavigationAction label='Logout' icon={<ExitToAppIcon />}  onClick={() => { 
                 logout()
                 user.setUser(emptyProfile)
@@ -62,7 +60,7 @@ export default function NavBar() {
                     .then((response) => {
                         user.setCurrentMessages(exportMessages)
                     })
-                }}/>
+            }}/>
             </BottomNavigation>      
       </Paper>
     )

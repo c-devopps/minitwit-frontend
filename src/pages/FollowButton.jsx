@@ -9,7 +9,9 @@ export default function FollowButton() {
 
     return (
         <Container>
-            <Button onClick={() => { follow(user.currentProfile.username).then((response) => {}) }}>
+            <Button onClick={() => { follow(user.currentProfile.username).then((response) => {
+                console.log(JSON.stringify(response))
+            })}}>
                 Follow
             </Button>
         </Container>    

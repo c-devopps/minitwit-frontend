@@ -8,7 +8,7 @@ export function getMessages() {
         redirect: 'follow'
     };
 
-    return fetch("/public?offset=0&limit=50", requestOptions)
+    return fetch("/public?offset=0&limit=200", requestOptions)
     .then(response => response.text())
     .then(result => JSON.parse(result))
     .then(result => exportMessages = result)
