@@ -31,25 +31,22 @@ export default function NavBar() {
             }}
             >
             <BottomNavigationAction  label='My Profile' icon={<AccountCircleIcon />} onClick={() => { 
-                user.setCurrentProfile({
-                    username: user.username,
-                    email: user.email,
-                    avatar: user.avatar,
-                    follows: user.follows
-                })
-                user.setCurrentMessages(user.currentMessages.filter(
-                    (message) => message.authorName == user.username
-                    )
-                )
-                }}/>
-            <BottomNavigationAction  label='My Timeline' icon={<FormatListBulletedIcon />} onClick={() => { 
                 getMessagesByUser(user.username)
-                        .then((response) => {
-                          console.log('Parsed messages in Timeline');
-                          user.setCurrentProfile(user.getUser());
-                          user.setCurrentMessages(exportMessages);
-                        })
-                }}/>
+                .then((response) => {
+                    user.setCurrentProfile(user.getUser());
+                    user.setCurrentMessages(exportMessages);
+                })
+            }}/>
+            <BottomNavigationAction  label='My Timeline' icon={<FormatListBulletedIcon />} onClick={() => { 
+                getMessages()
+                .then((response) => {
+                    user.setCurrentProfile(user.getUser());
+                    user.setCurrentMessages(exportMessages.filter(
+                            (message) => message.authorName == user.username
+                        )
+                    )
+                })
+            }}/>
             <BottomNavigationAction label='Public Timeline' icon={<PublicIcon />} onClick={() => { 
                 user.setCurrentProfile(emptyProfile);
                 getMessages()

@@ -162,13 +162,11 @@ function Profile() {
                                     //value={}
                                     onChange={(event) => setMessage(event.target.value)}
                                     />
-                                    <Button variant="outlined" sx={{ minWidth: 200, borderColor: '#a3c9fe' }} onClick={() => {
+                                    <Button variant="outlined" value={{message}} sx={{ minWidth: 200, borderColor: '#a3c9fe' }} onClick={() => {
                                         postMessage(user.username, message)
                                         .then((response) => {
-                                            this.value = '';
                                             setMessage('')
                                         })
-                                        this.value = '';
                                     }}>
                                         Post message
                                     </Button>
