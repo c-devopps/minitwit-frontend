@@ -13,7 +13,7 @@ export function logout() {
         redirect: 'follow'
     };
 
-    return fetch("/logout", requestOptions)
+    return fetch("/api/logout", requestOptions)
         .then(response => JSON.stringify(response))
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
