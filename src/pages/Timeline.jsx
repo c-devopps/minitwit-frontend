@@ -24,7 +24,7 @@ export default function Timeline() {
   }, [])
   useEffect(() => {
     logout()
-    .then((response) => console.log(JSON.stringify(response)))
+    .then((response) => {})
   }, [])
   let screenHeight = window.innerHeight;
 

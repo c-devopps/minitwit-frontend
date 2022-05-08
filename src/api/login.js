@@ -3,10 +3,6 @@ export function login(username, password) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    console.log('In log in ' + username)
-    console.log('In log in ' + password)
-
-
     var raw = JSON.stringify({
         "username": username,
         "password": password
@@ -22,9 +18,13 @@ export function login(username, password) {
     return fetch("/login", requestOptions)
         .then((response) => response.text())
         .then(result => {
-            console.log('Result ' + result)
-            loggedInUser = JSON.parse(result)
-            console.log('Parsed to ' + loggedInUser)
+            if (result[0] === '{') {
+                loggedInUser = JSON.parse(result)
+            } else {
+                loggedInUser = {
+                    username: '',
+                }
+            }
         })
         .catch(error => console.log('error', error));
 }

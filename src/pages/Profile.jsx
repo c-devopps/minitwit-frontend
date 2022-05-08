@@ -9,7 +9,6 @@ import userContext from '../utils/userContext';
 import FollowButton from './FollowButton'
 import { register } from '../api/register'
 import { login, loggedInUser } from '../api/login'
-import { logout } from '../api/logout'
 import { postMessage } from '../api/messages'
 
 
@@ -18,6 +17,7 @@ export default function Profile() {
     const [errorMessage, setErrorMessage] = useState('') 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
     const [registerClicked, setRegisterClicked] = useState(false)
@@ -29,7 +29,7 @@ export default function Profile() {
             paddingTop: 50,
         }}>
             {(() => {
-            if (user.username == '' ) {
+            if (user.username === '' ) {
                 if (!registerClicked) {
                 // LOGIN //
                     return (
@@ -60,7 +60,7 @@ export default function Profile() {
                                         if (loggedInUser.username !== '') {
                                             user.setUser(loggedInUser)
                                         } else {
-                                            logout()
+                                            setErrorMessage('Error logging in. Please try again.')
                                         }
                                     })
                                 }}>
@@ -95,15 +95,21 @@ export default function Profile() {
                             <TextField id="outlined-basic" type="password" placeholder="Enter password" variant="outlined"
                                 onChange={(event) => setPassword(event.target.value)}
                              />
-                            <TextField id="outlined-basic" type="password" placeholder="Repeat password" variant="outlined" />
+                            <TextField id="outlined-basic" type="password" placeholder="Repeat password" variant="outlined" 
+                                onChange={(event) => setRepeatPassword(event.target.value)}
+                            />
                             <Stack direction="row" spacing={2} style={{
                             display: 'flex',
                             alignItems: 'center',
                             }}>
                                 <Button variant="outlined" sx={{ borderColor: '#a3c9fe' }} 
                                 onClick={() => {
-                                    register(username, email, password)
-                                    setRegisterClicked(false)
+                                    if (password === repeatPassword) {
+                                        register(username, email, password)
+                                        setRegisterClicked(false)
+                                    } else {
+                                        setErrorMessage('Passwords do not match. Please try again.')
+                                    }
                                 }}>
                                 Register
                                 </Button>
@@ -112,10 +118,13 @@ export default function Profile() {
                                 Back
                                 </Button>
                             </Stack>
+                            <Typography variant="p" style={{color: 'red'}}>
+                                {errorMessage}
+                            </Typography>
                         </Stack>    
                     )
                 }
-            } else if (user.username != '' && user.currentProfile.username != '') {
+            } else if (user.username !== '' && user.currentProfile.username !== '') {
                 return (
                     <Stack direction="column" spacing={2} style={{
                     display: 'flex',
